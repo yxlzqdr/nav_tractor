@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: gps_common
+Description: Description of gps_common
+Version: 0.2.0
+Cflags: -I/home/green/nav_tractor/devel/include -I/home/green/nav_tractor/src/gps_common/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime std_msgs message_filters nav_msgs roscpp sensor_msgs std_msgs rospy

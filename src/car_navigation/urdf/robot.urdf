@@ -1,0 +1,157 @@
+<robot name="grapescar">
+
+  <link name="base_footprint">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 3.14" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.0 0.0 0.0 1" />
+      </material>
+    </visual>
+  </link>
+
+  <link name="FR_axle_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/FR_axle_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="FR_axle_joint" type="revolute">
+    <!-- <origin xyz="-0.2945 0.2185 0.16229" rpy="-1.5708 -6.123E-17 -1.5708" /> -->
+    <origin xyz="0.2945 -0.2185 0.16229" rpy="0 0 1.5708" />
+    <parent link="base_footprint" />
+    <child link="FR_axle_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.52" upper="0.52" effort="0" velocity="0" />
+  </joint>
+
+  <link name="FR_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/FR_wheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.38431 0.38431 0.38431 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="FR_wheel_joint" type="continuous">
+    <origin xyz="-0.0815 0 0" rpy="-1.5708 -1.0092 -1.5708" />
+    <parent link="FR_axle_link" />
+    <child link="FR_wheel_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="FL_axle_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/FL_axle_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.69804 0.69804 0.69804 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="FL_axle_joint" type="revolute">
+    <!-- <origin xyz="-0.2945 -0.2185 0.16229" rpy="-1.5708 6.123E-17 1.5708" /> -->
+    <origin xyz="0.2945 0.2185 0.16229" rpy="0 0.0 -1.5708" />
+    <parent link="base_footprint" />
+    <child link="FL_axle_link" />
+    <!-- <axis xyz="0 -1 0" /> -->
+    <axis xyz="0 0 1" />
+    <limit lower="-0.52" upper="0.52" effort="0" velocity="0" />
+  </joint>
+
+  <link name="FL_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+	  <geometry>
+		<mesh filename="package://car_navigation/meshes/FL_wheel_link.STL" />
+	  </geometry>
+      <material name="">
+        <color rgba="0.38431 0.38431 0.38431 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="FL_wheel_joint" type="continuous">
+    <origin xyz="-0.0815 0 0" rpy="-1.5708 -1.0217 1.5708" />
+    <parent link="FL_axle_link" />
+    <child link="FL_wheel_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="RL_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/RL_wheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.38431 0.38431 0.38431 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="RL_wheel_joint" type="continuous">
+    <!-- <origin xyz="0.355 -0.299 0.16119" rpy="-1.5708 0.5819 -3.1416" /> -->
+    <origin xyz="-0.355 -0.299 0.16119" rpy="-1.5708 6.123E-17 0" />
+    <parent link="base_footprint" />
+    <child link="RL_wheel_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="RR_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://car_navigation/meshes/RR_wheel_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.38431 0.38431 0.38431 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="RR_wheel_joint" type="continuous">
+    <!-- <origin xyz="0.355 0.299 0.16119" rpy="1.5708 0.0 -9.0256E-17" /> -->
+    <origin xyz="-0.355 0.299 0.16119" rpy="-1.5708 -6.123E-17 0" />
+    <parent link="base_footprint" />
+    <child link="RR_wheel_link" />
+    <axis xyz="0 0 1" />
+</joint>
+
+<link name="rslidar">
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<geometry>
+			<cylinder length="0.07" radius="0.05" />
+		</geometry>
+		<material name="">
+			<color rgba="0.38431 0.38431 0.38431 1" />
+		</material>
+	</visual>
+</link>
+
+<joint name="lidar_joint" type="fixed">
+	<origin xyz="-0.07 0.0 1.03" rpy="0 0 0" />
+	<parent link="base_footprint" />
+	<child link="rslidar" />
+	<axis xyz="0 0 1" />
+</joint>
+
+
+
+</robot>

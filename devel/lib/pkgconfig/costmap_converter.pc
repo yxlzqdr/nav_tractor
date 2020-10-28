@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: costmap_converter
+Description: Description of costmap_converter
+Version: 0.0.13
+Cflags: -I/home/green/nav_tractor/devel/include -I/home/green/nav_tractor/src/costmap_converter-master/include
+Libs: -L${prefix}/lib -lcostmap_converter
+Requires: geometry_msgs pluginlib roscpp std_msgs message_runtime dynamic_reconfigure costmap_2d

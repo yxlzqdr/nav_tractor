@@ -1,0 +1,8 @@
+image: cxzx3.pgm
+resolution: 0.150000
+origin: [-148.500003, -162.000003, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+map_origion: 646398.477401,4130918.570819,0.000000,0.000000,0.000000,-0.680838,0.732434
+

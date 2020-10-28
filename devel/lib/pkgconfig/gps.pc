@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: gps
+Description: Description of gps
+Version: 0.0.0
+Cflags: -I/home/green/nav_tractor/src/gps/include
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: canpublish
+Description: Description of canpublish
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

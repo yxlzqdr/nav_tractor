@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: move_slow_and_clear
+Description: Description of move_slow_and_clear
+Version: 1.14.7
+Cflags: -I/home/green/nav_tractor/src/navigation-kinetic-devel/move_slow_and_clear/include
+Libs: -L${prefix}/lib -lmove_slow_and_clear
+Requires: geometry_msgs nav_core pluginlib roscpp

@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: amcl
+Description: Description of amcl
+Version: 1.14.7
+Cflags: -I/home/green/nav_tractor/devel/include -I/home/green/nav_tractor/src/navigation-kinetic-devel/amcl/include
+Libs: -L${prefix}/lib -lamcl_sensors -lamcl_map -lamcl_pf
+Requires: rosbag roscpp dynamic_reconfigure tf nav_msgs std_srvs

@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: voxel_grid
+Description: Description of voxel_grid
+Version: 1.14.7
+Cflags: -I/home/green/nav_tractor/src/navigation-kinetic-devel/voxel_grid/include
+Libs: -L${prefix}/lib -lvoxel_grid
+Requires: roscpp

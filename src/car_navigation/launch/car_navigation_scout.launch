@@ -1,0 +1,56 @@
+<launch>
+	<master auto="start"/>
+	
+	<param name="/use_sim_time" value="true" />
+
+	<node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 1 0 0 0 base_footprint    rslidar 10" />
+
+	<!-- Map server -->
+	<arg name="dir" value="/home/k/LAM/map/nongji.yaml" />
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg dir)" />
+
+	<!--定位-->
+    <!-- 矫正参数 -->
+	<param name="offset_heading" type="double" value="5.49071" />
+	<param name="offset_x" type="double" value="-0.250287" />
+	<param name="offset_y" type="double" value="0.0186593" />
+	<!-- 记录gps起始点坐标 -->
+	<param name="record_starting_point" type="bool" value="false" />
+    <!-- 获取起始坐标点 -->
+    <param name="get_starting_point" type="bool" value="true" />
+	<rosparam file="$(arg dir)" command="load" />
+    <node pkg="gps_common" type="utm_odometry_node" name="utm_odometry_node"  output="screen"  >
+	</node>   
+
+	<!--movebase-->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<param name="controller_frequency" 	value="5.0"/> 
+		<param name="controller_patiente" value="3.0"/>
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_common_params_scout.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_common_params_scout.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find car_navigation)/navigation_params/local_costmap_params_scout.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/global_costmap_params_scout.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/global_planner_params_scout.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/base_local_planner_params_scout.yaml" command="load" />
+		<!-- <param name="base_global_planner" value3="global_planner/GlobalPlanner"/> -->
+		<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+		<!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_converter_params_scout.yaml" command="load" />
+	</node>
+
+	<!-- <node name="car_node" pkg="car" type="car_node" /> -->
+
+    <arg name="model" />      
+    <arg name="gui" default="False" />     
+    <param name="robot_description" textfile="$(find car_navigation)/urdf/robot.urdf" />      
+    <param name="use_gui" value="$(arg gui)"/>     
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    </node>      
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />  
+    <!-- <node name="gps_node" pkg="gps" type="gps_node" />     -->
+
+
+	<node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find car_navigation)/rviz/navigation.rviz" />
+
+</launch>

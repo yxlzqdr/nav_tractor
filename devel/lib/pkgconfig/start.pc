@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: start
+Description: Description of start
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

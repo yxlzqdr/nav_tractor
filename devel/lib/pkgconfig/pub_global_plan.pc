@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: pub_global_plan
+Description: Description of pub_global_plan
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

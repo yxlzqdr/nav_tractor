@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- 矫正参数 -->
+	<param name="offset_heading" value="111110" />
+	<param name="offset_x" value="11110" />
+	<param name="offset_y" value="11111110" />
+	<!-- 记录gps起始点坐标 -->
+	<param name="record_starting_point" value="true" />
+    <!-- 获取起始坐标点 -->
+    <param name="get_starting_point" value="false" />
+    <node pkg="gps_common" type="utm_odometry_node" name="utm_odometry_node" output="screen">
+	</node>   
+
+</launch>

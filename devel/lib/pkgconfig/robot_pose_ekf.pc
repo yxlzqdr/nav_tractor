@@ -1,0 +1,8 @@
+prefix=/home/green/nav_tractor/devel
+
+Name: robot_pose_ekf
+Description: Description of robot_pose_ekf
+Version: 1.14.7
+Cflags: -I/home/green/nav_tractor/devel/include
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs message_runtime nav_msgs roscpp sensor_msgs std_msgs

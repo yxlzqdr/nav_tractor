@@ -1,0 +1,61 @@
+<launch>
+	<master auto="start"/>
+     
+    <!-- Map server -->
+	<arg name="dir" value="/home/green/nav_tractor/map/cxzx3.yaml" />
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg dir)" output="screen">
+        <param name="frame_id" value="map"/>
+        </node> 
+
+    <!--定位-->
+	<!--node name="gps_node" pkg="gps" type="gps_node" output="screen" /-->
+
+    <!--矫正参数 -->
+	<param name="offset_heading" type="double" value="4.52128" />
+	<param name="offset_x" type="double" value="-0.375612" />
+	<param name="offset_y" type="double" value="0.0103665" />
+	<!-- 记录gps起始点坐标 -->
+	<param name="record_starting_point" type="bool" value="false" />
+        <!-- 获取起始坐标点 -->
+        <param name="get_starting_point" type="bool" value="true" />
+	<rosparam file="$(arg dir)" command="load" />
+        <node pkg="gps_common" type="utm_odometry_node" name="utm_odometry_node"  output="screen">
+	</node>   
+
+
+    <!--静态转换（实测时去掉）-->
+	<node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0 0 0.0 /map /base_footprint 1000"/>
+
+	<!--movebase-->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<param name="controller_frequency" 	value="100.0"/> 
+		<param name="controller_patiente"       value="20.0"/>
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find car_navigation)/navigation_params/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/global_planner_params.yaml" command="load" />
+		<rosparam file="$(find car_navigation)/navigation_params/base_local_planner_params.yaml" command="load" />
+		<param name="base_global_planner" value="global_planner/GlobalPlanner"/> 
+		<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+		<!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
+		<rosparam file="$(find car_navigation)/navigation_params/costmap_converter_params.yaml" command="load" />
+	</node>
+
+   <!--农机模型-->
+       <arg name="gui" default="False" />     
+       <param name="robot_description" textfile="$(find car_navigation)/urdf/robot.urdf" />      
+       <param name="use_gui" value="$(arg gui)"/>     
+       <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+       </node>      
+       <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />  
+  <!--底盘驱动-->
+  <!--<node name="car_node" pkg="canpublish" type="canpublish" output="screen"/>-->
+
+
+	<node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d $(find car_navigation)/rviz/navigation.rviz" />
+ 
+
+
+</launch>
